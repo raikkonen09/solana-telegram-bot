@@ -1,0 +1,21 @@
+{
+    "telegram": {
+        "api_id": 1234567, 
+        "api_hash": "MOCKED_API_HASH",
+        "phone": "+1234567890",
+        "group_ids": [-1001234567890] 
+    },
+    "solana": {
+        "private_key_path": "./phantom_wallet.json",
+        "slippage": 0.01,
+        "max_buy_amount": 0.1,
+        "gas_limit": 200000
+    },
+    "trade_logic": {
+        "take_profit": 0.50,
+        "stop_loss": -0.25,
+        "trailing_stop": false
+    }
+}
+
+
