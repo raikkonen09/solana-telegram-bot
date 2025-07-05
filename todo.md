@@ -35,8 +35,8 @@
 - [x] Perform integration tests for end-to-end flow
 
 ### Phase 8: Deploy to GitHub repository
-- [ ] Initialize Git repository
-- [ ] Add GitHub remote
-- [ ] Push all code, `README.md`, and `config.json` to the public repository
+- [x] Initialize Git repository
+- [x] Add GitHub remote
+- [x] Push all code, `README.md`, and `config.json` to the public repository
 
 

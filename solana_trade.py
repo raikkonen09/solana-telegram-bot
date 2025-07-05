@@ -24,7 +24,7 @@ async def buy_token(token_address, amount, slippage):
     print(f"[Solana] Attempting to buy {amount} of {token_address}")
     # This is a placeholder for Jupiter/Raydium integration
     # In a real scenario, you would interact with a DEX aggregator here
-    # For now, we'll simulate a transfer
+    # For now, we\'ll simulate a transfer
     
     # Example: Transfer 0.01 SOL to the token address as a simulated buy
     # This is NOT a real token buy, just a placeholder for the transaction structure
@@ -81,17 +81,36 @@ async def manage_trade(token_address, initial_buy_price):
     # This would involve continuously monitoring the token price
     # and executing sell orders based on TP/SL/Trailing Stop
     print(f"[Solana] Managing trade for {token_address}. Initial price: {initial_buy_price}")
-    # For demonstration, we'll just print a message
-    pass
+    
+    take_profit_targets = config["trade_logic"]["take_profit"]
+    stop_loss_target = config["trade_logic"]["stop_loss"]
+    trailing_stop_enabled = config["trade_logic"]["trailing_stop"]
 
+    # In a real scenario, you would fetch the current price of the token here
+    current_price = initial_buy_price * 1.2 # Simulate some price increase for testing
 
+    profit_loss_percentage = (current_price - initial_buy_price) / initial_buy_price
 
+    if profit_loss_percentage >= take_profit_targets[1]: # Check for 100% TP
+        print(f"[Solana] Take Profit (100%) triggered for {token_address}")
+        await sell_token(token_address, config["solana"]["max_buy_amount"], profit_loss_percentage)
+    elif profit_loss_percentage >= take_profit_targets[0]: # Check for 50% TP
+        print(f"[Solana] Take Profit (50%) triggered for {token_address}")
+        await sell_token(token_address, config["solana"]["max_buy_amount"] / 2, profit_loss_percentage) # Sell half
+    elif profit_loss_percentage <= stop_loss_target: # Check for Stop Loss
+        print(f"[Solana] Stop Loss triggered for {token_address}")
+        await sell_token(token_address, config["solana"]["max_buy_amount"], profit_loss_percentage)
+    elif trailing_stop_enabled: # Placeholder for trailing stop
+        print(f"[Solana] Trailing stop logic for {token_address}")
+        pass
+    else:
+        print(f"[Solana] No trade action for {token_address} at current price.")
 
 
 async def auto_snipe(token_address, amount, slippage):
     print(f"[Solana] Auto-sniping {amount} of {token_address} with slippage {slippage}")
     # This is where Jupiter Aggregator or Raydium integration would go.
-    # For now, we'll call the buy_token function as a placeholder.
+    # For now, we\'ll call the buy_token function as a placeholder.
     return await buy_token(token_address, amount, slippage)
 
 

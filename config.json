@@ -12,7 +12,7 @@
         "gas_limit": 200000
     },
     "trade_logic": {
-        "take_profit": 0.50,
+        "take_profit": [0.50, 1.00],
         "stop_loss": -0.25,
         "trailing_stop": false
     }
