@@ -8,7 +8,7 @@
 
 ### Phase 3: Implement robust token validation and honeypot checks
 - [x] Implement token validation via Dexscreener API
-- [x] Implement placeholder for honeypot checks
+- [x] Implement robust honeypot checks using provided API
 
 ### Phase 4: Implement advanced trailing stop logic
 - [x] Implement advanced trailing stop logic

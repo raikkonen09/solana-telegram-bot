@@ -3,6 +3,12 @@ import requests
 import json
 import time
 
+# Load configuration
+with open("config.json", "r") as f:
+    config = json.load(f)
+
+honeypot_api_key = config["trade_logic"]["honeypot_api_key"]
+
 def validate_token(token_address):
     print(f"[Risk Management] Validating token: {token_address} via Dexscreener...")
     try:
@@ -26,21 +32,24 @@ def validate_token(token_address):
         return False
 
 def check_honeypot(token_address):
-    print(f"[Risk Management] Checking for honeypot: {token_address} via ApeSpace...")
-    # ApeSpace API endpoint for honeypot check (example, actual API might differ or require API key)
-    # This is a mock for demonstration purposes. A real integration would involve signing up for ApeSpace API.
+    print(f"[Risk Management] Checking for honeypot: {token_address} via Honeypot.is...")
     try:
-        # For demonstration, we'll simulate a response.
-        # In a real scenario, replace this with an actual API call:
-        # response = requests.get(f"https://api.apespace.io/honeypot-check?token={token_address}")
-        # response.raise_for_status()
-        # data = response.json()
-        # return data.get("is_honeypot", False)
+        headers = {"Authorization": f"Bearer {honeypot_api_key}"}
+        # Assuming Honeypot.is API for Solana is something like this. 
+        # The actual endpoint might vary based on their documentation.
+        response = requests.get(f"https://api.honeypot.is/v2/IsHoneypot?address={token_address}&chain=solana", headers=headers)
+        response.raise_for_status()
+        data = response.json()
         
-        # Mocking a safe token for now
-        return False
+        # Assuming the API returns a 'honeypot' field (boolean) or similar
+        is_honeypot = data.get("honeypot", True) # Default to True if field is missing or API error
+        if is_honeypot:
+            print(f"[Risk Management] Token {token_address} is a honeypot.")
+        else:
+            print(f"[Risk Management] Token {token_address} is NOT a honeypot.")
+        return is_honeypot
     except requests.exceptions.RequestException as e:
-        print(f"[Risk Management] Error during ApeSpace honeypot check: {e}")
+        print(f"[Risk Management] Error during Honeypot.is check: {e}")
         return True # Assume it's a honeypot if check fails
 
 def handle_slippage_retry(func, *args, **kwargs):

@@ -7,7 +7,7 @@ This project is a fast and functional crypto trading bot that automatically exec
 - **Telegram Integration**: Monitors messages in real-time from selected public or private Telegram groups, extracts token callouts, and filters messages with keywords.
 - **Solana Integration**: Auto-snipes tokens via **Jupiter Aggregator** based on token addresses received from Telegram. Uses Phantom wallet or a connected keypair.
 - **Trade Logic**: Executes buy orders instantly after a call. Implements auto-sell logic with **Take Profit at 50% and 100%**, Stop Loss at -25%, and **advanced trailing stop**.
-- **Risk & Logging**: Validates tokens via **Dexscreener API** before buying. Includes fail-safes to ignore rugs, **robust honeypot checks (mocked)**, and **retry on slippage**. Logs all buys/sells with timestamp, transaction hash, and profit/loss percentage.
+- **Risk & Logging**: Validates tokens via **Dexscreener API** before buying. Includes fail-safes to ignore rugs, **robust honeypot checks**, and **retry on slippage**. Logs all buys/sells with timestamp, transaction hash, and profit/loss percentage.
 
 ## Setup Instructions
 
@@ -51,7 +51,8 @@ Edit the `config.json` file with your Telegram API credentials, Solana wallet de
     "trade_logic": {
         "take_profit": [0.50, 1.00],
         "stop_loss": -0.25,
-        "trailing_stop": false
+        "trailing_stop": false,
+        "honeypot_api_key": "bcc5b40a-7085-4939-812b-fb59ae7f4539"
     }
 }
 ```
@@ -66,6 +67,7 @@ Edit the `config.json` file with your Telegram API credentials, Solana wallet de
 - `take_profit`: **A list of percentage profits at which to automatically sell (e.g., `[0.50, 1.00]` for 50% and 100%).**
 - `stop_loss`: Percentage loss at which to automatically sell (e.g., -0.25 for 25%).
 - `trailing_stop`: Set to `true` to enable trailing stop loss, `false` otherwise.
+- `honeypot_api_key`: Your API key for the honeypot checking service.
 
 ## Usage
 
