@@ -6,8 +6,8 @@ This project is a fast and functional crypto trading bot that automatically exec
 
 - **Telegram Integration**: Monitors messages in real-time from selected public or private Telegram groups, extracts token callouts, and filters messages with keywords.
 - **Solana Integration**: Auto-snipes tokens via **Jupiter Aggregator** based on token addresses received from Telegram. Uses Phantom wallet or a connected keypair.
-- **Trade Logic**: Executes buy orders instantly after a call. Implements auto-sell logic with **Take Profit at 50% and 100%**, Stop Loss at -25%, and optional trailing stop.
-- **Risk & Logging**: Validates tokens via **Dexscreener API** before buying. Includes fail-safes to ignore rugs, flag honeypots (placeholder), and **retry on slippage**. Logs all buys/sells with timestamp, transaction hash, and profit/loss percentage.
+- **Trade Logic**: Executes buy orders instantly after a call. Implements auto-sell logic with **Take Profit at 50% and 100%**, Stop Loss at -25%, and **advanced trailing stop**.
+- **Risk & Logging**: Validates tokens via **Dexscreener API** before buying. Includes fail-safes to ignore rugs, **robust honeypot checks (mocked)**, and **retry on slippage**. Logs all buys/sells with timestamp, transaction hash, and profit/loss percentage.
 
 ## Setup Instructions
 

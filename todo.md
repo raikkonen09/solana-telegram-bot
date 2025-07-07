@@ -1,7 +1,6 @@
 ## Project Todo List
 
-### Phase 1: Identify and research potential improvements
-- [x] Research Jupiter Aggregator Python SDK or API for Solana
+### Phase 1: Research and implement robust honeypot checking API
 - [x] Research APIs for robust token validation and honeypot checks on Solana
 
 ### Phase 2: Implement Jupiter/Raydium integration for actual trades
@@ -11,9 +10,8 @@
 - [x] Implement token validation via Dexscreener API
 - [x] Implement placeholder for honeypot checks
 
-### Phase 4: Implement trailing stop logic
-- [x] Implement basic trailing stop logic (placeholder)
-
+### Phase 4: Implement advanced trailing stop logic
+- [x] Implement advanced trailing stop logic
 ### Phase 5: Enhance error handling and retry mechanisms
 - [x] Implement retry logic for transactions
 

@@ -24,6 +24,9 @@ def load_keypair(path):
 
 wallet_keypair = load_keypair(config["solana"]["private_key_path"])
 
+# Dictionary to store highest price for each token for trailing stop
+token_highest_prices = {}
+
 async def get_token_price(token_address):
     # Using Dexscreener API for price fetching
     try:
@@ -120,6 +123,10 @@ async def manage_trade(token_address, initial_buy_price):
         print(f"[Solana] Could not fetch current price for {token_address}. Skipping trade management.")
         return
 
+    # Update highest price for trailing stop
+    if token_address not in token_highest_prices or current_price > token_highest_prices[token_address]:
+        token_highest_prices[token_address] = current_price
+
     profit_loss_percentage = (current_price - initial_buy_price) / initial_buy_price
 
     if profit_loss_percentage >= take_profit_targets[1]: # Check for 100% TP
@@ -132,11 +139,8 @@ async def manage_trade(token_address, initial_buy_price):
         print(f"[Solana] Stop Loss triggered for {token_address}")
         await sell_token(token_address, config["solana"]["max_buy_amount"], profit_loss_percentage)
     elif trailing_stop_enabled: 
-        # Basic Trailing Stop Logic (needs more sophisticated implementation for production)
-        # This example assumes a fixed trailing percentage below the highest price achieved.
-        # In a real scenario, you'd store the highest price and continuously update it.
-        trailing_percentage = 0.05 # Example: 5% trailing stop
-        highest_price = initial_buy_price * 1.5 # Placeholder for highest price achieved
+        trailing_percentage = 0.05 # Example: 5% trailing stop, can be made configurable
+        highest_price = token_highest_prices.get(token_address, initial_buy_price) # Use initial buy price if no highest price recorded yet
 
         if current_price <= highest_price * (1 - trailing_percentage):
             print(f"[Solana] Trailing Stop triggered for {token_address}")
