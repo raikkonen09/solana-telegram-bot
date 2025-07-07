@@ -1,42 +1,26 @@
 ## Project Todo List
 
-### Phase 1: Research and setup project structure
-- [x] Create project directory `solana-telegram-bot`
-- [x] Decide on Python or Node.js (Decided on Python)
-- [x] Research Telegram and Solana integration libraries
-- [x] Create `todo.md`
+### Phase 1: Identify and research potential improvements
+- [x] Research Jupiter Aggregator Python SDK or API for Solana
+- [x] Research APIs for robust token validation and honeypot checks on Solana
 
-### Phase 2: Implement Telegram integration and message parsing
-- [x] Set up Telethon/Pyrogram to monitor Telegram groups
-- [x] Implement regex/NLP for token callout extraction (CA:, mint:, Solana Token Address)
-- [x] Filter messages with keywords (buy, new coin, pump, alpha)
-### Phase 3: Develop Solana blockchain integration and trading logic
-- [x] Integrate with `solana-py` or `solathon` for sending transactions
-- [x] Implement auto-snipe via Jupiter Aggregator or Raydium
-- [x] Load keypair from file or environment variables
-- [x] Allow configurable slippage, max buy amount, and gas limits
-- [x] Implement instant buy order execution after call
-- [x] Implement auto-sell logic (Take Profit at +50%, Stop Loss at -25%, optional trailing stop)
+### Phase 2: Implement Jupiter/Raydium integration for actual trades
+- [x] Implement Jupiter integration for buying and selling tokens
 
-### Phase 4: Implement risk management and validation systems
-- [x] Validate token via dexscreener/Jupiter API before buy
-- [x] Implement fail-safes: ignore rugs, flag honeypots, retry on slippage
+### Phase 3: Implement robust token validation and honeypot checks
+- [x] Implement token validation via Dexscreener API
+- [x] Implement placeholder for honeypot checks
 
-### Phase 5: Add logging and monitoring features
-- [x] Log all buys/sells with timestamp, tx hash, % profit/loss to `trades.log`
-- [x] Optionally send logs to Telegram DM/Discord
+### Phase 4: Implement trailing stop logic
+- [x] Implement basic trailing stop logic (placeholder)
 
-### Phase 6: Create configuration system and documentation
-- [x] Create `config.json` with editable parameters (Telegram API, wallet, limits)
-- [x] Write `README.md` with setup instructions
+### Phase 5: Enhance error handling and retry mechanisms
+- [x] Implement retry logic for transactions
 
-### Phase 7: Test the complete system locally
-- [x] Conduct unit tests for individual components
-- [x] Perform integration tests for end-to-end flow
+### Phase 6: Update documentation with new features
+- [x] Update `README.md` with new features
 
-### Phase 8: Deploy to GitHub repository
-- [x] Initialize Git repository
-- [x] Add GitHub remote
-- [x] Push all code, `README.md`, and `config.json` to the public repository
+### Phase 7: Push updated code to GitHub
+- [ ] Push all code to GitHub repository
 
 

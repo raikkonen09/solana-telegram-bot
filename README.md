@@ -5,9 +5,9 @@ This project is a fast and functional crypto trading bot that automatically exec
 ## Features
 
 - **Telegram Integration**: Monitors messages in real-time from selected public or private Telegram groups, extracts token callouts, and filters messages with keywords.
-- **Solana Integration**: Auto-snipes tokens via Jupiter Aggregator or Raydium (placeholder for now) based on token addresses received from Telegram. Uses Phantom wallet or a connected keypair.
-- **Trade Logic**: Executes buy orders instantly after a call. Implements auto-sell logic with Take Profit (+50%), Stop Loss (-25%), and optional trailing stop.
-- **Risk & Logging**: Validates tokens via Dexscreener/Jupiter API (placeholder for now) before buying. Includes fail-safes to ignore rugs and flag honeypots. Logs all buys/sells with timestamp, transaction hash, and profit/loss percentage.
+- **Solana Integration**: Auto-snipes tokens via **Jupiter Aggregator** based on token addresses received from Telegram. Uses Phantom wallet or a connected keypair.
+- **Trade Logic**: Executes buy orders instantly after a call. Implements auto-sell logic with **Take Profit at 50% and 100%**, Stop Loss at -25%, and optional trailing stop.
+- **Risk & Logging**: Validates tokens via **Dexscreener API** before buying. Includes fail-safes to ignore rugs, flag honeypots (placeholder), and **retry on slippage**. Logs all buys/sells with timestamp, transaction hash, and profit/loss percentage.
 
 ## Setup Instructions
 
@@ -49,7 +49,7 @@ Edit the `config.json` file with your Telegram API credentials, Solana wallet de
         "gas_limit": 200000
     },
     "trade_logic": {
-        "take_profit": 0.50,
+        "take_profit": [0.50, 1.00],
         "stop_loss": -0.25,
         "trailing_stop": false
     }
@@ -63,7 +63,7 @@ Edit the `config.json` file with your Telegram API credentials, Solana wallet de
 - `slippage`: Maximum acceptable price slippage for trades (e.g., 0.01 for 1%).
 - `max_buy_amount`: Maximum amount of SOL to spend per buy trade.
 - `gas_limit`: Gas limit for Solana transactions.
-- `take_profit`: Percentage profit at which to automatically sell (e.g., 0.50 for 50%).
+- `take_profit`: **A list of percentage profits at which to automatically sell (e.g., `[0.50, 1.00]` for 50% and 100%).**
 - `stop_loss`: Percentage loss at which to automatically sell (e.g., -0.25 for 25%).
 - `trailing_stop`: Set to `true` to enable trailing stop loss, `false` otherwise.
 
@@ -74,8 +74,6 @@ To start the bot, run:
 ```bash
 python main.py
 ```
-
-*(Note: `main.py` is not yet created, this is a placeholder for future integration of all modules.)*
 
 ## Project Structure
 
