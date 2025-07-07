@@ -1,24 +1,25 @@
 ## Project Todo List
 
-### Phase 1: Research and implement robust honeypot checking API
-- [x] Research APIs for robust token validation and honeypot checks on Solana
+### Phase 1: Update config.json with new private key format and Telegram credentials
+- [x] Update `config.json` with new private key format and Telegram credentials
 
-### Phase 2: Implement Jupiter/Raydium integration for actual trades
-- [x] Implement Jupiter integration for buying and selling tokens
+### Phase 2: Modify solana_trade.py to load private key directly and implement dry run mode
+- [x] Modify `solana_trade.py` to load private key directly
+- [x] Implement dry run mode in `solana_trade.py`
 
-### Phase 3: Implement robust token validation and honeypot checks
-- [x] Implement token validation via Dexscreener API
-- [x] Implement robust honeypot checks using provided API
+### Phase 3: Modify risk_management.py for dry run mode
+- [x] Implement dry run mode in `risk_management.py`
 
-### Phase 4: Implement advanced trailing stop logic
-- [x] Implement advanced trailing stop logic
-### Phase 5: Enhance error handling and retry mechanisms
-- [x] Implement retry logic for transactions
+### Phase 4: Modify telegram_monitor.py for dry run mode
+- [x] Implement dry run mode in `telegram_monitor.py`
 
-### Phase 6: Update documentation with new features
-- [x] Update `README.md` with new features
+### Phase 5: Perform dry run and collect simulated transaction stats
+- [x] Perform dry run and collect simulated transaction stats
+
+### Phase 6: Update documentation (README.md)
+- [x] Update `README.md`
 
 ### Phase 7: Push updated code to GitHub
-- [ ] Push all code to GitHub repository
+- [ ] Push updated code to GitHub
 
 

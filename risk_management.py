@@ -8,9 +8,13 @@ with open("config.json", "r") as f:
     config = json.load(f)
 
 honeypot_api_key = config["trade_logic"]["honeypot_api_key"]
+DRY_RUN = config.get("dry_run", False)
 
 def validate_token(token_address):
     print(f"[Risk Management] Validating token: {token_address} via Dexscreener...")
+    if DRY_RUN:
+        print("[Risk Management] DRY RUN: Skipping actual Dexscreener validation.")
+        return True # Assume valid in dry run
     try:
         response = requests.get(f"https://api.dexscreener.com/latest/dex/tokens/{token_address}")
         response.raise_for_status() # Raise an exception for HTTP errors
@@ -33,6 +37,9 @@ def validate_token(token_address):
 
 def check_honeypot(token_address):
     print(f"[Risk Management] Checking for honeypot: {token_address} via Honeypot.is...")
+    if DRY_RUN:
+        print("[Risk Management] DRY RUN: Skipping actual Honeypot.is check.")
+        return False # Assume not a honeypot in dry run
     try:
         headers = {"Authorization": f"Bearer {honeypot_api_key}"}
         # Assuming Honeypot.is API for Solana is something like this. 
@@ -41,7 +48,7 @@ def check_honeypot(token_address):
         response.raise_for_status()
         data = response.json()
         
-        # Assuming the API returns a 'honeypot' field (boolean) or similar
+        # Assuming the API returns a \'honeypot\' field (boolean) or similar
         is_honeypot = data.get("honeypot", True) # Default to True if field is missing or API error
         if is_honeypot:
             print(f"[Risk Management] Token {token_address} is a honeypot.")
@@ -50,7 +57,7 @@ def check_honeypot(token_address):
         return is_honeypot
     except requests.exceptions.RequestException as e:
         print(f"[Risk Management] Error during Honeypot.is check: {e}")
-        return True # Assume it's a honeypot if check fails
+        return True # Assume it\'s a honeypot if check fails
 
 def handle_slippage_retry(func, *args, **kwargs):
     retries = 3

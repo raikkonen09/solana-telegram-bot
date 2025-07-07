@@ -14,8 +14,8 @@ logging.basicConfig(
     ]
 )
 
-def log_trade(trade_type, timestamp, tx_hash, profit_loss=None):
-    message = f"Trade Type: {trade_type}, Timestamp: {timestamp}, Tx Hash: {tx_hash}"
+def log_trade(trade_type, timestamp, tx_hash, token_address, amount, profit_loss=None):
+    message = f"Trade Type: {trade_type}, Timestamp: {timestamp}, Tx Hash: {tx_hash}, Token: {token_address}, Amount: {amount}"
     if profit_loss is not None:
         message += f", P/L: {profit_loss:.2f}%"
     logging.info(message)
@@ -25,6 +25,5 @@ async def send_telegram_log(message):
     # This would integrate with the Telegram client to send a DM
     print(f"[Telegram Log] {message}")
     pass
-
 
 

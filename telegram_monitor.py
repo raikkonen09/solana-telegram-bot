@@ -4,22 +4,24 @@ import re
 import json
 
 # Load configuration
-with open('config.json', 'r') as f:
+with open("config.json", "r") as f:
     config = json.load(f)
 
-api_id = config['telegram']['api_id']
-api_hash = config['telegram']['api_hash']
-phone = config['telegram']['phone']
-group_ids = config['telegram']['group_ids']
+api_id = config["telegram"]["api_id"]
+api_hash = config["telegram"]["api_hash"]
+phone = config["telegram"]["phone"]
+group_ids = config["telegram"]["group_ids"]
 
-client = TelegramClient('anon', api_id, api_hash)
+DRY_RUN = config.get("dry_run", False)
+
+client = TelegramClient("anon", api_id, api_hash)
 
 async def parse_message(message):
     # Regex to detect token callouts (CA:, mint:, or Solana Token Address)
     # This is a basic example and might need refinement
     token_patterns = [
-        r'(?:CA:|mint:)\s*([a-zA-Z0-9]{32,44})',  # CA: or mint: followed by address
-        r'\b([a-zA-Z0-9]{32,44})\b'  # Standalone Solana address (32-44 alphanumeric characters)
+        r"(?:CA:|mint:)\s*([a-zA-Z0-9]{32,44})",  # CA: or mint: followed by address
+        r"\b([a-zA-Z0-9]{32,44})\b"  # Standalone Solana address (32-44 alphanumeric characters)
     ]
     
     found_tokens = []
@@ -28,12 +30,16 @@ async def parse_message(message):
         found_tokens.extend(matches)
 
     # Filter messages with keywords
-    keywords = ['buy', 'new coin', 'pump', 'alpha']
+    keywords = ["buy", "new coin", "pump", "alpha"]
     if any(keyword in message.lower() for keyword in keywords):
         print(f"[Telegram] Detected potential coin call: {message}")
         if found_tokens:
             print(f"[Telegram] Found tokens: {found_tokens}")
-            # Here you would pass the token to the trading logic
+            if DRY_RUN:
+                print("[Telegram] DRY RUN: Skipping actual trading logic.")
+            else:
+                # Here you would pass the token to the trading logic
+                pass
             return found_tokens
     return []
 
