@@ -17,6 +17,6 @@
         "trailing_stop": false,
         "honeypot_api_key": "bcc5b40a-7085-4939-812b-fb59ae7f4539"
     },
-    "dry_run": true
+    "dry_run": false
 }
 

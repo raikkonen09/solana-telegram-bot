@@ -56,8 +56,8 @@ if DRY_RUN:
     Keypair = MockKeypair
 else:
     from solana.rpc.api import Client
-    from solana.keypair import Keypair
-    from solana.publickey import PublicKey
+    from solders.keypair import Keypair
+    from solders.pubkey import Pubkey
     from jup_ag_sdk import Jupiter
     solana_client = Client("https://api.devnet.solana.com") # Use devnet for testing
     jupiter_client = Jupiter(solana_client)
@@ -68,7 +68,7 @@ def load_keypair_from_list(private_key_list):
     else:
         return Keypair.from_secret_key(bytes(private_key_list))
 
-wallet_keypair = load_keypair_from_list(config["solana"]["private_key"])
+wallet_keypair = load_keypair_from_list(config["solders"]["private_key"])
 
 # Dictionary to store highest price for each token for trailing stop
 token_highest_prices = {}
@@ -100,8 +100,8 @@ async def buy_token(token_address, amount, slippage):
         # Assuming we are buying with SOL (So11111111111111111111111111111111111111112)
         # and the token_address is the output mint
         quote = await jupiter_client.quote(
-            input_mint=PublicKey("So11111111111111111111111111111111111111112"),
-            output_mint=PublicKey(token_address),
+            input_mint=Pubkey("So11111111111111111111111111111111111111112"),
+            output_mint=Pubkey(token_address),
             amount=int(amount * 10**9), # Convert SOL to lamports
             slippage_bps=int(slippage * 10000) # Convert slippage to basis points
         )
@@ -139,8 +139,8 @@ async def sell_token(token_address, amount, profit_loss):
     try:
         # Get quote from Jupiter for selling (input is token_address, output is SOL)
         quote = await jupiter_client.quote(
-            input_mint=PublicKey(token_address),
-            output_mint=PublicKey("So11111111111111111111111111111111111111112"),
+            input_mint=Pubkey(token_address),
+            output_mint=Pubkey("So11111111111111111111111111111111111111112"),
             amount=int(amount * 10**9), # Assuming amount is in token\"s smallest unit
             slippage_bps=int(config["solana"]["slippage"] * 10000)
         )
